@@ -53,6 +53,10 @@ public:
       return false;
     }
 
+    if (!isSampleRateSupported(sampleRate)) {
+      return false;
+    }
+
     if (voGetAACEncAPI(&api_) != VO_ERR_NONE) {
       return false;
     }
@@ -159,6 +163,34 @@ public:
    * @return True if begin() succeeded and end() was not called.
    */
   bool isReady() const { return started_; }
+
+  static constexpr int kSupportedSampleRatesCount = 12;
+  static constexpr int kSupportedSampleRates[kSupportedSampleRatesCount] = {
+      96000, 88200, 64000, 48000, 44100, 32000,
+      24000, 22050, 16000, 12000, 11025, 8000};
+
+public:
+  /** Check whether a sample rate (Hz) is supported by the encoder. */
+  static bool isSampleRateSupported(uint32_t sampleRate) {
+    for (int i = 0; i < kSupportedSampleRatesCount; ++i) {
+      if (static_cast<uint32_t>(kSupportedSampleRates[i]) == sampleRate)
+        return true;
+    }
+    return false;
+  }
+
+#ifdef ARDUINO
+  /** Print supported sample rates to Serial (Arduino builds). */
+  static void printSupportedSampleRates() {
+    Serial.print("Supported sample rates (Hz): ");
+    for (int i = 0; i < kSupportedSampleRatesCount; ++i) {
+      if (i) Serial.print(", ");
+      Serial.print(kSupportedSampleRates[i]);
+    }
+    Serial.println();
+  }
+#endif
+
 
 private:
   VO_AUDIO_CODECAPI api_;

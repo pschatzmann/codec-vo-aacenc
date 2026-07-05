@@ -19,7 +19,7 @@ Despite these limitations, its low complexity and modest resource requirements m
 - Original encoder headers copied into `src/vo-aacenc`
 - Simple C++ wrapper class: `VOAACEncoder`
 - Example sketch: `examples/EncodeSineToAAC`
-- cmake complient
+- CMake compliant
 
 ## Basic usage
 
@@ -29,6 +29,7 @@ Despite these limitations, its low complexity and modest resource requirements m
 VOAACEncoder encoder;
 
 void setup() {
+  // encoder.begin(sampleRateHz, bitRateBps, channels, useAdts)
   encoder.begin(16000, 32000, 1, true);
 }
 
@@ -42,10 +43,21 @@ void loop() {
 
 ## Notes
 
+Parameters for begin():
+
+- sampleRateHz: Input sample rate in Hz (must be one of the supported rates listed below).
+- bitRateBps: Target AAC bitrate in bits per second (e.g. 32000 = 32 kbps).
+- channels: Number of input channels (1 = mono, 2 = stereo).
+- useAdts: When true, ADTS headers are prepended to each encoded frame (useful for streaming/playback tools).
+
+
 - Input frame size must be exactly 1024 samples per channel.
 - Input PCM format is 16-bit signed, interleaved if stereo.
 - Typical AAC output fits into 2 KB for one frame at common speech bitrates, but size depends on settings.
-- Depending on MCU resources, this encoder may be too heavy for small boards.
+- Uses PSRAM for ESP32 or Raspberry Pi Pico when available and enabled.
+- Resource guidance: This encoder performs best on 32-bit MCUs with at least several hundred kilobytes of RAM (for example ESP32, RP2040 with PSRAM, or similar). It is generally unsuitable for 8-bit AVR boards (Uno/Nano) or very small Cortex-M0 devices without external memory. If you're targeting constrained hardware, prefer lower sample rates, mono audio, enable PSRAM where supported, or consider a simpler codec.
+- Bitrate note: `bitRate` is specified in bits per second. The encoder expects per-channel bitrates in the practical range 4000–160000 bps (4 kbps–160 kbps). The implementation also enforces an overall cap roughly equal to sampleRate * 6 * channels. Internally the encoder selects one of the discrete bandwidth presets (per-channel): 16, 24, 32, 40, 48, 56, 64 kbps — your requested bitrate will be mapped to the closest preset for bandwidth selection. Example: for mono 32 kbps pass `bitRate = 32000`.
+- Supported sample rates: 8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100, 48000, 64000, 88200, 96000 Hz.
 
 ## Recommendation
 
