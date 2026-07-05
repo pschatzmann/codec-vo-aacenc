@@ -9,6 +9,9 @@ This folder contains an Arduino-compatible packaging of the VisualOn `vo-aacenc`
 
 Compared with Fraunhofer FDK AAC, vo-aacenc is simpler and is lightweight enough for older or resource-constrained systems. However, it offers lower audio quality, supports only AAC-LC, lacks advanced features such as high-quality VBR and HE-AAC profiles, and is no longer actively maintained.
 
+Despite these limitations, its low complexity and modest resource requirements make it well suited for many microcontroller applications.
+
+
 ## What is included
 
 - Original C encoder implementation sources copied into `src/vo-aacenc`
