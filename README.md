@@ -1,8 +1,13 @@
 # VOAACEncoder (Arduino Port)
 
+[![Arduino Library](https://img.shields.io/badge/Arduino-Library-blue.svg)](https://www.arduino.cc/reference/en/libraries/)
+[![CMake](https://img.shields.io/badge/CMake-Ready-blue.svg)](#cmake-usage)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](COPYING)
+
+
 This folder contains an Arduino-compatible packaging of the VisualOn `vo-aacenc` encoder. 
 
-Compared with the Fraunhofer FDK AAC encoder, `vo-aacenc` is using less resources at the cost of the audio quality.
+Compared with Fraunhofer FDK AAC, vo-aacenc is simpler and is lightweight enough for older or resource-constrained systems. However, it offers lower audio quality, supports only AAC-LC, lacks advanced features such as high-quality VBR and HE-AAC profiles, and is no longer actively maintained.
 
 ## What is included
 
