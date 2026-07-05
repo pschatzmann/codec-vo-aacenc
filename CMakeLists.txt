@@ -11,16 +11,33 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
 file(GLOB VOAAC_C_SOURCES CONFIGURE_DEPENDS src/vo-aacenc/*.c)
-
-add_library(VOAACEncoder STATIC
+set(VOAAC_COMPONENT_SOURCES
   ${VOAAC_C_SOURCES}
 )
 
-target_include_directories(VOAACEncoder PUBLIC
-  ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
+if(COMMAND idf_component_register)
+  # ESP-IDF component mode
+  idf_component_register(
+    SRCS ${VOAAC_COMPONENT_SOURCES}
+    INCLUDE_DIRS src
+  )
 
-# Keep compatibility with existing C code assumptions.
-target_compile_definitions(VOAACEncoder PRIVATE
-  ARMV5E
-)
+  # Keep compatibility with existing C code assumptions.
+  target_compile_definitions(${COMPONENT_LIB} PRIVATE
+    ARMV5E
+  )
+else()
+  # Standalone / generic CMake mode
+  add_library(VOAACEncoder STATIC
+    ${VOAAC_COMPONENT_SOURCES}
+  )
+
+  target_include_directories(VOAACEncoder PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+  )
+
+  # Keep compatibility with existing C code assumptions.
+  target_compile_definitions(VOAACEncoder PRIVATE
+    ARMV5E
+  )
+endif()

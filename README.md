@@ -2,6 +2,7 @@
 
 [![Arduino Library](https://img.shields.io/badge/Arduino-Library-blue.svg)](https://www.arduino.cc/reference/en/libraries/)
 [![CMake](https://img.shields.io/badge/CMake-Ready-blue.svg)](#cmake-usage)
+[![ESP-IDF Component](https://img.shields.io/badge/ESP--IDF-Component-blue.svg)](#esp-idf-component-usage)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](COPYING)
 
 
@@ -69,6 +70,24 @@ target_link_libraries(your_target PRIVATE VOAACEncoder)
 ```
 
 Headers are exposed from `src/`, so you can include:
+
+```cpp
+#include <VOAACEncoder.h>
+```
+
+## ESP-IDF component usage
+
+This repository can be used directly as an ESP-IDF component.
+
+In your ESP-IDF project `CMakeLists.txt`:
+
+```cmake
+idf_component_register(...)
+```
+
+Then add this repository under your project's `components/` folder (for example `components/codec-vo-aacenc`).
+
+The component exports headers from `src/`, so you can include:
 
 ```cpp
 #include <VOAACEncoder.h>
