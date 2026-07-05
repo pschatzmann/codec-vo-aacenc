@@ -1,4 +1,4 @@
-# VOAACEncoder (Arduino Port)
+# VOAACEncoder
 
 [![Arduino Library](https://img.shields.io/badge/Arduino-Library-blue.svg)](https://www.arduino.cc/reference/en/libraries/)
 [![CMake](https://img.shields.io/badge/CMake-Ready-blue.svg)](#cmake-usage)
@@ -46,6 +46,10 @@ void loop() {
 - Input PCM format is 16-bit signed, interleaved if stereo.
 - Typical AAC output fits into 2 KB for one frame at common speech bitrates, but size depends on settings.
 - Depending on MCU resources, this encoder may be too heavy for small boards.
+
+## Recommendation
+
+Though it is possible to use this library directly, I recommend to use it as part of the [AudioTools Library](https://github.com/pschatzmann/arduino-audio-tools) which provides a standardized API for all encoders and decoders. For further details see the [corresponding Wiki](https://github.com/pschatzmann/arduino-audio-tools/wiki/Encoding-and-Decoding-of-Audio).
 
 
 ## Install in Arduino
