@@ -1,4 +1,4 @@
-# VOAACEncoder (Arduino Port)
+# VOAACEncoder
 
 [![Arduino Library](https://img.shields.io/badge/Arduino-Library-blue.svg)](https://www.arduino.cc/reference/en/libraries/)
 [![CMake](https://img.shields.io/badge/CMake-Ready-blue.svg)](#cmake-usage)
