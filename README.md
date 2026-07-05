@@ -87,8 +87,3 @@ idf_component_register(...)
 
 Then add this repository under your project's `components/` folder (for example `components/codec-vo-aacenc`).
 
-The component exports headers from `src/`, so you can include:
-
-```cpp
-#include <VOAACEncoder.h>
-```
